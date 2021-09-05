@@ -36,7 +36,6 @@
     top: auto;
     bottom: auto;
   }
-
 </style>
 
 {% endblock %}
@@ -66,18 +65,9 @@
       <!-- ITEM-1 -->
       <div class="carousel-item active">
 
-        <div class="col-xs-3 col-sm-3 col-md-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/media/{{products.0.image}}" class="card-img-top proimg" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{products.0.product_name}}</h5>
-              <p class="card-text">{{products.0.desc}}</p>
-              <button id="pr{{products.0.id}}" class="btn btn-primary cart">Add to Cart</button>
-            </div>
-          </div>
-        </div>
+        
 
-        {% for i in products|slice:"1:" %}
+        {% for i in products %}
 
         <div class="col-xs-3 col-sm-3 col-md-3">
           <div class="card" style="width: 18rem;">
@@ -89,7 +79,7 @@
             </div>
           </div>
         </div>
-        {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
       </div>
       <div class="carousel-item">
 
@@ -120,18 +110,19 @@
 {% block js %}
 <script>
   console.log('Working...')
-  if(localStorage.getItem('cart') == null) {
+  if (localStorage.getItem('cart') == null) {
     var cart = {};
   }
   else {
     cart = JSON.parse(localStorage.getItem('cart'));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
   }
 
-  $('.cart').click(function(){
+  $('.cart').click(function () {
     console.log('Clicked')
     var idstr = this.id.toString();
     console.log(idstr)
-    if(cart[idstr] != undefined) {
+    if (cart[idstr] != undefined) {
       cart[idstr] = cart[idstr] + 1;
     }
     else {
