@@ -36,20 +36,25 @@ def about(request):
 
 
 def contact(request):
-    return HttpResponse("We are contact")
+    return render(request, 'shop/contact.html')
 
 
 def tracker(request):
-    return HttpResponse("We are tracker")
+    return render(request, 'shop/tracker.html')
 
 
 def search(request):
-    return HttpResponse("We are search")
+    return render(request, 'shop/search.html')
 
 
-def productView(request):
-    return HttpResponse("We are product view")
+def productView(request, myid):
+    #Fetch the product using ID
+    
+    product = Product.objects.filter(id=myid)
+    print(product)
+
+    return render(request, 'shop/productView.html', {'product':product[0]})
 
 
 def checkout(request):
-    return HttpResponse("We are checkoutt")
+    return render(request, 'shop/checkout.html')
